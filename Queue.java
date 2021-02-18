@@ -11,18 +11,18 @@ public class Queue {
 		this.capacity = capacity;
 		array = new Object[capacity];
 		head = 0;
-		size = 0;
+		size1 = 0;
 	}
 	
 	public boolean isEmpty() {
-		if(size == 0)
+		if(size1 == 0)
 			return true;
 		else
 			return false;
 	}
 	
 	public boolean isFull() {
-		if(size == capacity)
+		if(size1 == capacity)
 			return true;
 		else 
 			return false;
@@ -37,14 +37,14 @@ public class Queue {
 	}
 	
 	public Object peekTail() {
-		return array[size - 1];
+		return array[size1 - 1];
 	}
 	
 	public Object add(Object item) {
 		if(isFull())
 			return "The queue is full";
-		size++;
-		array[size-1] = item;
+		size1++;
+		array[size1-1] = item;
 		return item;
 	}
 	
@@ -52,7 +52,7 @@ public class Queue {
 		if(isEmpty())
 			return "The queue is empty";
 		Object removedItem = array[head];
-		for(int i = 1; i < size; i++) {
+		for(int i = 1; i < size1; i++) {
 			array[i-1] = array[i];
 			array[i] = null;
 		}
@@ -64,7 +64,7 @@ public class Queue {
 		Scanner scn = new Scanner(System.in);
 		boolean bool = true;
 		int input;
-        int size = 0;
+        int size1 = 0;
 			
 		while(bool) {
 			
@@ -81,13 +81,13 @@ public class Queue {
                 input = scn.nextInt();		
                 switch(input) {
                 case 1:
-                    System.out.println("Queue size:");
-                    size = scn.nextInt();
-                    que = new Queue(size);
+                    System.out.println("Queue size1:");
+                    size1 = scn.nextInt();
+                    que = new Queue(size1);
                     break;
                 case 2:
                     Object item;
-                    for(int i=1;i<=size;i++) {
+                    for(int i=1;i<=size1;i++) {
                         System.out.println("input item number " + i + " : ");
                         item = scn.next();
                         que.add(item);
