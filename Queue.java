@@ -3,7 +3,7 @@ import java.util.*;
 public class Queue {
 
 	Object[] array;
-	int size;
+	int size1;
 	int head;
 	int capacity;
 	
