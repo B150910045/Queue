@@ -1,124 +1,109 @@
 import java.util.*;
 
-public class Queue {
-
-	Object[] array;
-	int size;
-	int head;
-	int capacity;
-	
-	public Queue(int capacity) {
-		this.capacity = capacity;
-		array = new Object[capacity];
-		head = 0;
-		size = 0;
-	}
-	
-	public boolean isEmpty() {
-		if(size == 0)
-			return true;
-		else
-			return false;
-	}
-	
-	public boolean isFull() {
-		if(size == capacity)
-			return true;
-		else 
-			return false;
-	}
-	
-	public String toString() {
-		return Arrays.toString(array);
-	}
-	
-	public Object peek() {
-		return array[head];
-	}
-	
-	public Object peekTail() {
-		return array[size - 1];
-	}
-	
-	public Object add(Object item) {
-		if(isFull())
-			return "The queue is full";
-		size++;
-		array[size-1] = item;
-		return item;
-	}
-	
-	public Object remove() {
-		if(isEmpty())
-			return "The queue is empty";
-		Object removedItem = array[head];
-		for(int i = 1; i < size; i++) {
-			array[i-1] = array[i];
-			array[i] = null;
+class Queue {
+	class Node{
+		Object data;
+		Node next;
+		Node(Object x){
+			data = x;
+			next = null;
 		}
-		return removedItem;
+	}
+
+	Node front, rear;
+
+	public Queue(){
+		front = rear = null;
+	}
+
+	public boolean isEmpty(){
+		return (front == null);
+	}
+
+    public Object getFront(){
+        return front.data;
+    }
+
+    public Object getRear(){
+        return rear.data;
+    }
+
+	public Object remove(){
+		if(isEmpty()){
+			System.out.printlm("empty");
+			return null;
+		}
+		Node temp = front;
+		front = front.next;
+		return temp.data;
+	}
+
+	public void insert(Object item){
+		Node temp = new Node(item);
+		if(isEmpty()){
+			front = rear = temp;
+		}else{
+			rear = temp;
+			rear.next = temp;
+		}
 	}
 	
-	public static void main(String[] args) {
-		Queue que = null;
-		Scanner scn = new Scanner(System.in);
-		boolean bool = true;
+    public void print(){
+        Node temp = front;
+        StringBuilder str = new StringBuilder("[");
+        for(int i=0;i<3;i++){
+            if(temp != null){
+                str.append(temp.data);
+                str.append(", ");
+                temp = temp.next;
+            }
+        }
+        str.append("]");
+        System.out.println(str);
+    }
+	public static void main(String[] args){
+        Queue que = new Queue();
+        Scanner scn;
+        Boolean bool = true;
 		int input;
-        int size = 0;
-			
-		while(bool) {
-			
-			System.out.println("1. create queue");
-			System.out.println("2. add item");
-			System.out.println("3. get first item");
-			System.out.println("4. get last item");
-			System.out.println("5. remove item");
-			System.out.println("6. check if empty");
-			System.out.println("7. check if full");
-			System.out.println("8. exit");
-			
-            try{
-                input = scn.nextInt();		
-                switch(input) {
-                case 1:
-                    System.out.println("Queue size:");
-                    size = scn.nextInt();
-                    que = new Queue(size);
-                    break;
-                case 2:
-                    Object item;
-                    for(int i=1;i<=size;i++) {
-                        System.out.println("input item number " + i + " : ");
-                        item = scn.next();
-                        que.add(item);
-                    }
-                    System.out.println(que.toString());
-                    break;
-                case 3: 
-                    System.out.println("first item is : " + que.peek());
-                    break;
-                case 4:
-                    System.out.println("last item is : " + que.peekTail());
-                    break;
-                case 5:
-                    System.out.println("removed " + que.remove());
-                    System.out.println(que.toString());
-                    break;
-                case 6:
-                    System.out.println(que.isEmpty());
-                    break;
-                case 7:
-                    System.out.println(que.isFull());
-                    break;
-                case 8:
-                    bool = false;
-                    scn.close();
-                    break;
-                default:
-                    System.out.println("Input only the numbers 1-8");
-                }
-            }catch(InputMismatchException e){bool = false;}
-		}
-	}
 
+        while(bool){
+            System.out.println("1 - insert");
+            System.out.println("2 - remove");
+            System.out.println("3 - get front");
+            System.out.println("4 - get rear");
+            System.out.println("5 - print");
+            System.out.println("6 - exit");
+			try{
+				scn = new Scanner(System.in);
+				input = scn.nextInt();
+
+				switch(input){
+					case 1: 
+						Object item;
+						System.out.println("insert item :");
+						item = scn.next();
+						que.insert(item);
+						break;
+					case 2:
+						que.remove();
+						break;
+					case 3:
+						System.out.println(que.getFront());
+						break;
+					case 4:
+						System.out.println(que.getRear());
+						break;
+					case 5:
+						que.print();
+						break;
+					case 6:
+						bool = false;
+						break;
+					default :
+						System.out.println("Zuvhun 1-6 toonuud!");
+				}
+			}catch(InputMismatchException e){System.out.println("zuvhun 1-6 toonuud");}
+        }
+    }
 }
